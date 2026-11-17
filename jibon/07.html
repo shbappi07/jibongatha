@@ -62,9 +62,7 @@ const STORY = {
   endNote: "পরের পর্ব: শৈশবের শেষ দিন",
   sections: [
     {scene:1, text:"আমগাছের তলায় ভোরের শিশিরে একটা ছোট্ট পাখির ছানা পড়ে ছিল, ডানায় পালকও পুরো হয়নি। সাগর মুখ দিয়ে সেটাকে বুকের মধ্যে তুলে নিল — এই কান্না কি ওর দোষে হলো?"}
-  ]
-};
-STORY.sections += [
+  ,
     {scene:2, text:"ছোট্ট পাখিটা দুই হাতে মুঠি করে ধরে সাগর দৌড়াল বাড়ির পথে — খেয়াল করে খেয়াল করে, যেন মুঠো ভাঙে না।"},
     {scene:3, text:"দিদিমা দেখালেন কীভাবে তুলা ভেজা করে ঠোঁটের পাশে জল দিতে হয়, ভাত-মাখানো খাবার দিতে হয়। সাগর সেই কাজটা করল এত সাবধানে, যত সাবধানে কেউ কখনো করেনি।"},
     {scene:4, text:"বাঁশের ঝুড়িতে ঘাস বিছিয়ে বাসা বানিয়ে দিল বারান্দার কোণে। “তোর নাম মিঠু,” বলল সাগর। পাখিটা মাথা কাত করে শুনল — মেনে নিল, মনে হলো।"},
@@ -88,6 +86,7 @@ for(let i=1;i<=SCENE_COUNT;i++){
   el.style.backgroundImage=`url(${IMG}scene${i}.webp)`;
   bg.appendChild(el);
 }
+for(let i=1;i<=SCENE_COUNT;i++){const im=new Image();im.src=`${IMG}scene${i}.webp`;if(im.decode)im.decode();}
 const veil=document.createElement('div');veil.className='veil';bg.appendChild(veil);
 const tint=document.createElement('div');tint.className='tint';bg.appendChild(tint);
 

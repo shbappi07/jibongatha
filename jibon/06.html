@@ -69,9 +69,7 @@ const STORY = {
     {scene:6, text:"তারপর, আলো ফোটার আগে, একটা ছোট্ট কান্না শোনা গেল। মা ক্লান্ত শরীরে বুকের ভেতর একটা মুখো জড়িয়ে ধরলেন — পিয়া জন্মাল।"},
     {scene:7, text:"সাগর আঙুলের ওপর উঠে দেখল — মায়ের কোলে পাতার মতো ছোট্ট একটা মানুষ। সে ভয়ে ভয়ে জিজ্ঞেস করল, “এটা কি ভাঙবে?”"},
     {scene:8, text:"“না বাবা, এটা তোমার বোন,” সবাই হেসে বলল। সাগর মুখ কুঁচকে ভাবল — এত ছোট হয়ে কীসের বোন হবে!"}
-  ]
-};
-STORY.sections += [
+  ,
     {scene:9, text:"দাদু ছোট্ট মেয়েটাকে কোলে নিয়ে নাম রাখলেন — পিয়া। “প্রিয় যে-ই হোক, পিয়া তো প্রিয়তম,” বললেন হেসে।"},
     {scene:10, text:"সাগর বোনের পাশে বসে ফিসফিস করে বলল, “আমি দাদা, ভয় করো না।” সে নিজেই জানে না, কথাটা কোথা থেকে এলো।"},
     {scene:11, text:"হঠাৎ পিয়ার ছোট্ট হাত সাগরের আঙুল মুঠো করে ধরল। এত ক্ষুধার্ত একটা ছুঁয়ে সাগর মনে করেনি কোনোদিন। সে আর আঙুল বের করল না।"},
@@ -88,6 +86,7 @@ for(let i=1;i<=SCENE_COUNT;i++){
   el.style.backgroundImage=`url(${IMG}scene${i}.webp)`;
   bg.appendChild(el);
 }
+for(let i=1;i<=SCENE_COUNT;i++){const im=new Image();im.src=`${IMG}scene${i}.webp`;if(im.decode)im.decode();}
 const veil=document.createElement('div');veil.className='veil';bg.appendChild(veil);
 const tint=document.createElement('div');tint.className='tint';bg.appendChild(tint);
 

@@ -62,9 +62,7 @@ const STORY = {
   endNote: "পরের পর্ব: স্কুলের প্রথম দিন",
   sections: [
     {scene:1, text:"পাঁচ বছরের সাগরের জীবনের শেষ স্বাধীন সকালটা এমনই কেটে গেল — ঘুম থেকে ওঠার কোনো তাড়া নেই, রোদ জানালায় এসে বসে আছে অপেক্ষা করছে।"}
-  ]
-};
-STORY.sections += [
+  ,
     {scene:2, text:"সকালে গমের পথে বন্ধুদের সাথে ঘুড়ি ওড়াল — খবরের কাগজের ঘুড়ি, নিজের হাতে বানানো। আকাশ যে ওদেরই, আজ শেষবার পুরোটা চলে এল।"},
     {scene:3, text:"দুপুরে কাঁচকলাগাছের ছায়ায় বুলি খেলা। ছোট্ট মার্বেলগুলো রোদে চকচক করল — সাগর তার সবগুলো এক বন্ধুকে দিয়ে দিল, কিছু মনে না করে।"},
     {scene:4, text:"তারপর আমগাছে উঠে পাকা আম ছোল, বন্ধু নিচ থেকে হাত বাড়াল। চুরির নাম যদি হয়, সেই চুরিও যে মিষ্টি হয় — এটা কেবল শৈশব জানে।"},
@@ -88,6 +86,7 @@ for(let i=1;i<=SCENE_COUNT;i++){
   el.style.backgroundImage=`url(${IMG}scene${i}.webp)`;
   bg.appendChild(el);
 }
+for(let i=1;i<=SCENE_COUNT;i++){const im=new Image();im.src=`${IMG}scene${i}.webp`;if(im.decode)im.decode();}
 const veil=document.createElement('div');veil.className='veil';bg.appendChild(veil);
 const tint=document.createElement('div');tint.className='tint';bg.appendChild(tint);
 

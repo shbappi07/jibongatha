@@ -85,6 +85,7 @@ for(let i=1;i<=SCENE_COUNT;i++){
   el.style.backgroundImage=`url(${IMG}scene${i}.webp)`;
   bg.appendChild(el);
 }
+for(let i=1;i<=SCENE_COUNT;i++){const im=new Image();im.src=`${IMG}scene${i}.webp`;if(im.decode)im.decode();}
 const veil=document.createElement('div');veil.className='veil';bg.appendChild(veil);
 const tint=document.createElement('div');tint.className='tint';bg.appendChild(tint);
 
