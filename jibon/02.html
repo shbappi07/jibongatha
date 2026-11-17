@@ -41,6 +41,7 @@ h1{font-family:"Noto Serif Bengali",serif;font-size:clamp(2.2rem,6.5vw,4.2rem);f
 #hint.gone{opacity:0}
 @keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,8px)}}
 @media (max-width:640px){section{min-height:115vh;padding:8vh 6vw}.card{padding:1.7rem 1.5rem}#dots{right:10px}}
+.more{display:inline-block;padding:11px 20px;margin:5px 6px;border:1px solid rgba(255,255,255,.4);border-radius:999px;background:rgba(20,16,10,.45);color:#fff;text-decoration:none;font-size:14px;letter-spacing:.02em;backdrop-filter:blur(4px);transition:background .2s}.more:hover{background:rgba(255,255,255,.18)}
 </style>
 </head>
 <body>
@@ -105,7 +106,7 @@ STORY.sections.forEach((s,i)=>{
 });
 const end=document.createElement('section');end.className='end';end.dataset.scene=SCENE_COUNT;
 end.innerHTML=`<div class="big">${STORY.endTitle}</div><div class="small">${STORY.endNote}</div><p class="morewrap"><a class="more" href="01.html">আগের পর্ব: প্রথম কান্না</a> <a class="more" href="03.html">পরের পর্ব পড়ো</a>
-  <a class="more" href="index.html">সিরিজের সব পর্ব দেখো</a></p>`;
+  <a class="more" href="../index.html">সিরিজের সব পর্ব দেখো</a></p>`;
 main.appendChild(end);
 
 const dots=document.getElementById('dots');
@@ -143,9 +144,13 @@ function onScroll(){
   const frac=f-k;
   const t=sceneOf[k]-1+(sceneOf[k+1]-sceneOf[k])*frac;
   layers.forEach((ly,i)=>{
-    const o=Math.max(0,Math.min(1,1-Math.abs(t-i)));
+    const dv=t-i;
+    let o;
+    if(dv<=-1||dv>=1)o=0;
+    else if(dv<0)o=1;
+    else o=dv;
     ly.style.opacity=o;
-    ly.style.transform=`scale(${1.06+Math.abs(t-i)*.05}) translateY(${(t-i)*14}px)`;
+    ly.style.transform=`scale(${1.06+Math.abs(dv)*.05}) translateY(${dv*14}px)`;
   });
   const cur=Math.round(t);
   [...dots.children].forEach((a,i)=>a.classList.toggle('act',i===cur-1));
