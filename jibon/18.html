@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>জীবনগাথা পর্ব ১৮ — বন্ধুদের দল</title>
+<meta name="description" content="জীবনগাথা পর্ব ১৮ — বন্ধুদের দল: আবৃত্তির প্রস্তুতি, প্রথম মঞ্চ, প্রথম সম্মান।">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&family=Noto+Serif+Bengali:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;overscroll-behavior:none}
+body{font-family:Inter,"Noto Serif Bengali",serif;background:#0b0e14;color:#f2ede2;overflow-x:hidden}
+#bg{position:fixed;inset:0;z-index:0}
+#bg .layer{position:absolute;inset:-5%;background-size:cover;background-position:center;opacity:0;visibility:hidden}
+#bg .veil{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 52%,rgba(4,6,11,.62) 100%)}
+#bg .tint{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,10,18,.35),rgba(8,10,18,.15) 40%,rgba(8,10,18,.5))}
+#bar{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,#e8a75c,#f6d08a);z-index:60;box-shadow:0 0 12px rgba(232,167,92,.7)}
+#dots{position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:60;display:flex;flex-direction:column;gap:10px}
+#dots a{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.25);display:block;transition:all .3s}
+#dots a.act{background:#f6d08a;transform:scale(1.5);box-shadow:0 0 10px rgba(246,208,138,.8)}
+main{position:relative;z-index:2}
+section{min-height:135vh;display:flex;align-items:center;padding:10vh 7vw}
+section .card{max-width:620px;background:rgba(9,12,20,.58);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.09);border-radius:22px;padding:2.4rem 2.6rem;box-shadow:0 24px 60px rgba(0,0,0,.45)}
+@supports not (backdrop-filter:blur(1px)){section .card{background:rgba(9,12,20,.88)}}
+.js .card{opacity:0;transform:translateY(34px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+.js .card.on{opacity:1;transform:none}
+section.r{justify-content:flex-end}
+.num{font-size:.78rem;letter-spacing:.25em;color:#e8a75c;margin-bottom:1.1rem;font-weight:600}
+.card p{font-family:"Noto Serif Bengali",serif;font-size:clamp(1.1rem,2.2vw,1.4rem);line-height:2}
+.hero{min-height:100vh;flex-direction:column;justify-content:center;text-align:center;gap:1.4rem}
+.hero .kicker{font-size:.8rem;letter-spacing:.5em;text-transform:uppercase;color:#e8a75c;font-weight:600}
+h1{font-family:"Noto Serif Bengali",serif;font-size:clamp(2.2rem,6.5vw,4.2rem);font-weight:600;line-height:1.3;text-shadow:0 4px 40px rgba(0,0,0,.6)}
+.hero .sub{opacity:.85;font-size:clamp(1rem,1.8vw,1.2rem);max-width:40ch;margin:0 auto}
+.end{min-height:80vh;justify-content:center;text-align:center;flex-direction:column;gap:1rem}
+.end .big{font-family:"Noto Serif Bengali",serif;font-size:clamp(1.8rem,4vw,2.6rem)}
+.end .small{opacity:.7;letter-spacing:.1em;font-size:.9rem}
+.end .more{color:#f6d08a;text-decoration:none;border-bottom:1px solid rgba(246,208,138,.4);font-size:.95rem}
+#hint{position:fixed;bottom:26px;left:50%;transform:translateX(-50%);z-index:55;font-size:.72rem;letter-spacing:.35em;text-transform:uppercase;opacity:.75;animation:bob 2.2s ease-in-out infinite;transition:opacity .5s}
+#hint.gone{opacity:0}
+@keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,8px)}}
+@media (max-width:640px){section{min-height:115vh;padding:8vh 6vw}.card{padding:1.7rem 1.5rem}#dots{right:10px}}
+.more{display:inline-block;padding:11px 20px;margin:5px 6px;border:1px solid rgba(255,255,255,.4);border-radius:999px;background:rgba(20,16,10,.45);color:#fff;text-decoration:none;font-size:14px;letter-spacing:.02em;backdrop-filter:blur(4px);transition:background .2s}.more:hover{background:rgba(255,255,255,.18)}
+.layer{backface-visibility:hidden;-webkit-backface-visibility:hidden}#bg .layer.act{visibility:visible;will-change:transform,opacity}
+.layer img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+</style>
+</head>
+<body>
+<div id="bg"></div>
+<div id="bar"></div>
+<nav id="dots"></nav>
+<div id="hint">Scroll</div>
+<main id="story"></main>
+<script>
+/* ===== জীবনগাথা পর্ব ১৮ =====
+   scene = কোন ব্যাকগ্রাউন্ড ছবি (img/scene1.webp ... img/sceneN.webp)
+   SCENE_COUNT আর ছবির সংখ্যা মিলিয়ে দিলেই নতুন গল্প চলবে। */
+const SCENE_COUNT = 12;
+const IMG = "img18/";
+const STORY = {
+  title: "বন্ধুদের দল",
+  subtitle: "জীবনগাথা · পর্ব ১৮ — আগের পর্বে: নতুন শহরের স্কুল। এবার: নতুন স্কুলে নিজের দল।",
+  endTitle: "সমাপ্ত",
+  endNote: "পরের পর্ব: পরীক্ষার চাপ",
+  sections: [
+    {scene:1, text:"ষষ্ঠ শ্রেণিতে সাগরের নিজের একটা দল হয়ে গেল — টিফিনে বটগাছের নিচে পাঁচ বন্ধু, হাসি কখনো থামে না।"},
+    {scene:2, text:"প্রতিদিন টিফিনের পর মাঠে কাবাডি। সাগর তাদের দলের সবচেয়ে দ্রুত ছেলে।"},
+    {scene:3, text:"ছুটির পর সবাই বটগাছের নিচে গুটিয়ে বসে পড়ে — যে কষ্টে পড়ে, বাকিরা তাকে শিখায়।"},
+    {scene:4, text:"কেউ মুড়ি আনলে সবাই খায়, কেউ বাটাসা আনলে সবাই খায়। ভাগাভাগিটাই তাদের নিয়ম।"},
+    {scene:5, text:"একদিন ক্লাসে কাগজের প্লেন তৈরি করতে গিয়ে সবাই ধরা পড়ল। দাঁড়ানো হলো সবাইকে — একসাথে, সবাইকে।"},
+    {scene:6, text:"বর্ষায় পাঁচজনের হাতে একটাই ছাতা। ভেজা পড়েও হাসতে হাসতে সবাই বাড়ি ফেরে।"},
+    {scene:7, text:"পরীক্ষার আগে সবাই জড়ো হলো এক বন্ধুর উঠানে। হ্যারিকেনের আলোয় প্রশ্ন উল্টোপাল্টা।"},
+    {scene:8, text:"স্কুলের ফুটবলে তাদের দল চ্যাম্পিয়ন। সাগরকে কাঁধে তুলে সবাই মাঠ প্রদক্ষিণ করল।"},
+    {scene:9, text:"নদীর ঘাটে খেলতে গিয়ে এক বন্ধু পড়ে হাতে ব্যথা পেল। সাগর তাকে পিঠে নিয়ে, বাকিরা ব্যাগ কাঁধে নিয়ে ফেরল।"},
+    {scene:10, text:"সন্ধ্যায় ঘাটে বসে সবাই স্বপ্ন বলে — ডাক্তার, শিক্ষক, ইঞ্জিনিয়ার। নদী শুনে যায় চুপচাপ।"},
+    {scene:11, text:"সাগর ক'দিন অসুখে স্কুলে যেতে পারেনি। বন্ধুরা বই-খাতা আর ফল হাতে বাড়ি এলো — পড়া শেখাতে।"},
+    {scene:12, text:"বছর শেষে স্যার বললেন, তোমাদের সবচেয়ে বড় সম্পদ এই বন্ধুরা। সাগরের বুকটা ভরে গেল।"}
+  ]
+};/* ================================ */
+
+document.documentElement.classList.add('js');
+const bn=n=>String(n).replace(/\d/g,d=>'০১২৩৪৫৬৭৮৯'[d]);
+const bg=document.getElementById('bg');
+for(let i=1;i<=SCENE_COUNT;i++){
+  const el=document.createElement('div');
+  el.className='layer';
+  const im=document.createElement('img');
+  im.src=`${IMG}scene${i}.webp`;
+  im.decoding='async';
+  im.alt='';
+  el.appendChild(im);
+  bg.appendChild(el);
+  if(im.decode)im.decode();
+}
+const veil=document.createElement('div');veil.className='veil';bg.appendChild(veil);
+const tint=document.createElement('div');tint.className='tint';bg.appendChild(tint);
+
+const main=document.getElementById('story');
+const words=STORY.sections.map(s=>s.text).join(" ").split(/\s+/).length;
+const mins=Math.max(1,Math.round(words/140));
+const hero=document.createElement('section');hero.className='hero';
+hero.dataset.scene=1;
+hero.innerHTML=`<div class="kicker">জীবনগাথা · পর্ব ১৮</div><h1>${STORY.title}</h1><p class="sub">${STORY.subtitle} · পড়তে প্রায় ${bn(mins)} মিনিট</p>`;
+main.appendChild(hero);
+STORY.sections.forEach((s,i)=>{
+  const sec=document.createElement('section');
+  if(i%2===1)sec.className='r';
+  sec.dataset.scene=s.scene;
+  sec.innerHTML=`<div class="card"><div class="num">দৃশ্য ${bn(String(s.scene).padStart(2,'0'))}</div><p>${s.text}</p></div>`;
+  main.appendChild(sec);
+});
+const end=document.createElement('section');end.className='end';end.dataset.scene=SCENE_COUNT;
+end.innerHTML=`<div class="big">${STORY.endTitle}</div><div class="small">${STORY.endNote}</div><p class="morewrap"><a class="more" href="17.html">আগের পর্ব: নতুন শহরের স্কুল</a>
+  <a class="more" href="19.html">পরের পর্ব: পরীক্ষার চাপ</a>
+  <a class="more" href="../index.html">সিরিজের সব পর্ব দেখো</a></p>`;
+main.appendChild(end);
+
+const dots=document.getElementById('dots');
+STORY.sections.forEach((s,i)=>{
+  const a=document.createElement('a');a.href='#';a.dataset.i=i;dots.appendChild(a);
+});
+dots.addEventListener('click',e=>{
+  e.preventDefault();
+  const i=+e.target.dataset.i;
+  main.querySelectorAll('section')[i+1].scrollIntoView({behavior:'smooth'});
+});
+
+const secs=[...document.querySelectorAll('section')];
+const layers=[...document.querySelectorAll('.layer')];
+const bar=document.getElementById('bar');
+const hint=document.getElementById('hint');
+const sceneOf=secs.map(s=>+s.dataset.scene);
+let pos=[],raf=0;
+function measure(){
+  const sy=scrollY;
+  pos=secs.map(s=>{const r=s.getBoundingClientRect();return r.top+sy+r.height/2;});
+}
+function reveal(){
+  document.querySelectorAll('.card').forEach(c=>{
+    if(c.getBoundingClientRect().top<innerHeight*.85)c.classList.add('on');
+  });
+}
+function draw(){
+  const max=document.documentElement.scrollHeight-innerHeight;
+  const p=max>0?Math.min(1,Math.max(0,scrollY/max)):0;
+  bar.style.width=(p*100)+'%';
+  hint.classList.toggle('gone',scrollY>innerHeight*.25);
+  const y=scrollY+innerHeight*.5;
+  let k=0;
+  while(k<pos.length-2&&y>=pos[k+1])k++;
+  const span=Math.max(1,pos[k+1]-pos[k]);
+  const fr=Math.min(1,Math.max(0,(y-pos[k])/span));
+  const t=sceneOf[k]+(sceneOf[k+1]-sceneOf[k])*fr;
+  const x=Math.min(layers.length-1,Math.max(0,t-1));
+  const i0=Math.floor(x);
+  layers.forEach((ly,i)=>{
+    if(!(i>=i0-1&&i<=i0+2)){ly.classList.remove('act');ly.style.opacity='0';return;}
+    ly.classList.add('act');
+    const dv=x-i;
+    ly.style.opacity=String(Math.max(0,1-Math.abs(dv)));
+    ly.style.transform=`scale(${1.06+Math.abs(dv)*.05}) translateY(${dv*14}px)`;
+  });
+  const cur=Math.round(x)+1;
+  [...dots.children].forEach((a,i)=>a.classList.toggle('act',i===cur-1));
+}
+function onScroll(){
+  if(!raf)raf=requestAnimationFrame(()=>{raf=0;reveal();draw();});
+}
+measure();
+addEventListener('scroll',onScroll,{passive:true});
+addEventListener('resize',()=>{measure();reveal();draw();},{passive:true});
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{measure();draw();});
+addEventListener('load',()=>{measure();draw();});
+reveal();draw();
+</script>
+</body>
+</html>
