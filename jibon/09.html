@@ -42,6 +42,8 @@ h1{font-family:"Noto Serif Bengali",serif;font-size:clamp(2.2rem,6.5vw,4.2rem);f
 @keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,8px)}}
 @media (max-width:640px){section{min-height:115vh;padding:8vh 6vw}.card{padding:1.7rem 1.5rem}#dots{right:10px}}
 .more{display:inline-block;padding:11px 20px;margin:5px 6px;border:1px solid rgba(255,255,255,.4);border-radius:999px;background:rgba(20,16,10,.45);color:#fff;text-decoration:none;font-size:14px;letter-spacing:.02em;backdrop-filter:blur(4px);transition:background .2s}.more:hover{background:rgba(255,255,255,.18)}
+.layer{will-change:opacity,transform;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.layer img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 </style>
 </head>
 <body>
@@ -83,10 +85,14 @@ const bg=document.getElementById('bg');
 for(let i=1;i<=SCENE_COUNT;i++){
   const el=document.createElement('div');
   el.className='layer';
-  el.style.backgroundImage=`url(${IMG}scene${i}.webp)`;
+  const im=document.createElement('img');
+  im.src=`${IMG}scene${i}.webp`;
+  im.decoding='async';
+  im.alt='';
+  el.appendChild(im);
   bg.appendChild(el);
+  if(im.decode)im.decode();
 }
-for(let i=1;i<=SCENE_COUNT;i++){const im=new Image();im.src=`${IMG}scene${i}.webp`;if(im.decode)im.decode();}
 const veil=document.createElement('div');veil.className='veil';bg.appendChild(veil);
 const tint=document.createElement('div');tint.className='tint';bg.appendChild(tint);
 
