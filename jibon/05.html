@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>জীবনগাথা পর্ব ৫ — প্রথম বর্ষা</title>
+<meta name="description" content="জীবনগাথা পর্ব ৫ — প্রথম বর্ষা: বৃষ্টি, ভয়, জলে লাফানো আর রংধনু।">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&family=Noto+Serif+Bengali:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:Inter,"Noto Serif Bengali",serif;background:#0b0e14;color:#f2ede2;overflow-x:hidden}
+#bg{position:fixed;inset:0;z-index:0}
+#bg .layer{position:absolute;inset:-5%;background-size:cover;background-position:center;opacity:0;will-change:opacity,transform}
+#bg .veil{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 52%,rgba(4,6,11,.62) 100%)}
+#bg .tint{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,10,18,.35),rgba(8,10,18,.15) 40%,rgba(8,10,18,.5))}
+#bar{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,#e8a75c,#f6d08a);z-index:60;box-shadow:0 0 12px rgba(232,167,92,.7)}
+#dots{position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:60;display:flex;flex-direction:column;gap:10px}
+#dots a{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.25);display:block;transition:all .3s}
+#dots a.act{background:#f6d08a;transform:scale(1.5);box-shadow:0 0 10px rgba(246,208,138,.8)}
+main{position:relative;z-index:2}
+section{min-height:135vh;display:flex;align-items:center;padding:10vh 7vw}
+section .card{max-width:620px;background:rgba(9,12,20,.58);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.09);border-radius:22px;padding:2.4rem 2.6rem;box-shadow:0 24px 60px rgba(0,0,0,.45)}
+@supports not (backdrop-filter:blur(1px)){section .card{background:rgba(9,12,20,.88)}}
+.js .card{opacity:0;transform:translateY(34px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+.js .card.on{opacity:1;transform:none}
+section.r{justify-content:flex-end}
+.num{font-size:.78rem;letter-spacing:.25em;color:#e8a75c;margin-bottom:1.1rem;font-weight:600}
+.card p{font-family:"Noto Serif Bengali",serif;font-size:clamp(1.1rem,2.2vw,1.4rem);line-height:2}
+.hero{min-height:100vh;flex-direction:column;justify-content:center;text-align:center;gap:1.4rem}
+.hero .kicker{font-size:.8rem;letter-spacing:.5em;text-transform:uppercase;color:#e8a75c;font-weight:600}
+h1{font-family:"Noto Serif Bengali",serif;font-size:clamp(2.2rem,6.5vw,4.2rem);font-weight:600;line-height:1.3;text-shadow:0 4px 40px rgba(0,0,0,.6)}
+.hero .sub{opacity:.85;font-size:clamp(1rem,1.8vw,1.2rem);max-width:40ch;margin:0 auto}
+.end{min-height:80vh;justify-content:center;text-align:center;flex-direction:column;gap:1rem}
+.end .big{font-family:"Noto Serif Bengali",serif;font-size:clamp(1.8rem,4vw,2.6rem)}
+.end .small{opacity:.7;letter-spacing:.1em;font-size:.9rem}
+.end .more{color:#f6d08a;text-decoration:none;border-bottom:1px solid rgba(246,208,138,.4);font-size:.95rem}
+#hint{position:fixed;bottom:26px;left:50%;transform:translateX(-50%);z-index:55;font-size:.72rem;letter-spacing:.35em;text-transform:uppercase;opacity:.75;animation:bob 2.2s ease-in-out infinite;transition:opacity .5s}
+#hint.gone{opacity:0}
+@keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,8px)}}
+@media (max-width:640px){section{min-height:115vh;padding:8vh 6vw}.card{padding:1.7rem 1.5rem}#dots{right:10px}}
+</style>
+</head>
+<body>
+<div id="bg"></div>
+<div id="bar"></div>
+<nav id="dots"></nav>
+<div id="hint">Scroll</div>
+<main id="story"></main>
+<script>
+/* ===== জীবনগাথা পর্ব ৫ =====
+   scene = কোন ব্যাকগ্রাউন্ড ছবি (img/scene1.webp ... img/sceneN.webp)
+   SCENE_COUNT আর ছবির সংখ্যা মিলিয়ে দিলেই নতুন গল্প চলবে। */
+const SCENE_COUNT = 12;
+const IMG = "img5/";
+const STORY = {
+  title: "প্রথম বর্ষা",
+  subtitle: "জীবনগাথা · পর্ব ৫ — আগের পর্বে: আগুনের পাশে দিদিমার গল্প। এবার: সাগরের প্রথম বর্ষা।",
+  endTitle: "সমাপ্ত",
+  endNote: "পরের পর্ব: বোন পিয়ার জন্ম",
+  sections: [
+    {scene:1, text:"বৈশাখের শেষে আকাশটা একদিন কালো হয়ে এল। সাগর উঠানে দাঁড়িয়ে মেঘের দিকে তাকিয়ে রইল — আকাশ যে এত বড় হতে পারে, সে আজ প্রথম বুঝল।"},
+    {scene:2, text:"তারপর বৃষ্টি নামল। টিনের ছাদে ঝমঝম, মাটিতে জলের ঢেউ। সাগর দৌড়ে গেল খোলা উঠানে, দুই হাত মেলে — বৃষ্টি তার মুখে গা ধুয়ে দিল।"},
+    {scene:3, text:"মা ডাকলেন, “ভিজে যাবি বাবা!” তিনি বারান্দায় টানলেন, কিন্তু সাগর আরও বৃষ্টি চাইল — ছোট হাত বাড়িয়ে ফোঁটা ধরার চেষ্টা করে করে হেসে গেল।"},
+    {scene:4, text:"হঠাৎ বজ্র পড়ল। সাগর ভয়ে ছুটে এল, মায়ের আঁচল ধরে মুখ লুকাল। প্রথমবার সে জানল আকাশও রাগ করতে পারে।"},
+    {scene:5, text:"মা কোলে নিয়ে ফিসফিস করলেন, “মেঘ ভয় না বাবা, সে শুধু গলছে। যে গলে, সে আবার হাসে।” ল্যাম্পের আলোয় ছেলেটার ভয় ধীরে নেমে গেল।"},
+    {scene:6, text:"বৃষ্টি থামল, আর উঠান হয়ে গেল জলের মাঠ। সাগর খালি পায়ে লাফিয়ে লাফিয়ে জল ছিটাল — দুনিয়াটা যে ওর জন্যই সাজানো।"},
+    {scene:7, text:"কাদায় মাখা দুই পা নিয়ে সে দৌড়াল, পেছনে মা গামছা হাতে হাসতে হাসতে ছুটলেন — গ্রামের পুরো বিকেল দুজনের হাসিতে ভরে গেল।"},
+    {scene:8, text:"একটা সবুজ ব্যাঙ জলে বসে ডেকে উঠল। সাগর দাঁড়াল হাঁটু ভাঁজ করে, বিশ্বাস করতে পারল না — গল্পের বাইরেও এমন জীবন আছে!"},
+    {scene:9, text:"সন্ধ্যায় বাবা ছেলেকে কোলে নিয়ে বারান্দায় বসলেন। ভেজা মাটির গন্ধ, দূরে একটু আলো — সাগর সেই গন্ধের নাম জানে না, কিন্তু মনে রাখবে সারাজীবন।"},
+    {scene:10, text:"বাবা কাগজের নৌকা বানিয়ে দিলেন। নৌকাটা ভাসল ঢাল বেয়ে, আর সাগর দৌড়ে দৌড়ে পেছনে গেল — নিজের নামের মতোই সে সাগরের সন্ধানে প্রথম যাত্রা।"},
+    {scene:11, text:"রাতে টিনের ছাদে বৃষ্টি শোনা যাচ্ছিল — ঠিক একটা গানের মতো। দিদিমার পাশে সাগর ঘুমিয়ে গেল, আর বৃষ্টি গান গাইতেই থাকল।"},
+    {scene:12, text:"ভোরে উঠে সাগর দেখল — আকাশে রংধনু! সে আঙুল তুলে দেখাল সবাইকে। বজ্রের পরেও আকাশ এভাবে হাসে — এই কথাটাই জীবনের সবচেয়ে দরকারি গল্প।"}
+  ]
+};/* ================================ */
+
+document.documentElement.classList.add('js');
+const bn=n=>String(n).replace(/\d/g,d=>'০১২৩৪৫৬৭৮৯'[d]);
+const bg=document.getElementById('bg');
+for(let i=1;i<=SCENE_COUNT;i++){
+  const el=document.createElement('div');
+  el.className='layer';
+  el.style.backgroundImage=`url(${IMG}scene${i}.webp)`;
+  bg.appendChild(el);
+}
+const veil=document.createElement('div');veil.className='veil';bg.appendChild(veil);
+const tint=document.createElement('div');tint.className='tint';bg.appendChild(tint);
+
+const main=document.getElementById('story');
+const words=STORY.sections.map(s=>s.text).join(" ").split(/\s+/).length;
+const mins=Math.max(1,Math.round(words/140));
+const hero=document.createElement('section');hero.className='hero';
+hero.dataset.scene=1;
+hero.innerHTML=`<div class="kicker">জীবনগাথা · পর্ব ৫</div><h1>${STORY.title}</h1><p class="sub">${STORY.subtitle} · পড়তে প্রায় ${bn(mins)} মিনিট</p>`;
+main.appendChild(hero);
+STORY.sections.forEach((s,i)=>{
+  const sec=document.createElement('section');
+  if(i%2===1)sec.className='r';
+  sec.dataset.scene=s.scene;
+  sec.innerHTML=`<div class="card"><div class="num">দৃশ্য ${bn(String(s.scene).padStart(2,'0'))}</div><p>${s.text}</p></div>`;
+  main.appendChild(sec);
+});
+const end=document.createElement('section');end.className='end';end.dataset.scene=SCENE_COUNT;
+end.innerHTML=`<div class="big">${STORY.endTitle}</div><div class="small">${STORY.endNote}</div><p class="morewrap"><a class="more" href="04.html">আগের পর্ব: দিদিমার রূপকথা</a>
+  <a class="more" href="index.html">সিরিজের সব পর্ব দেখো</a></p>`;
+main.appendChild(end);
+
+const dots=document.getElementById('dots');
+STORY.sections.forEach((s,i)=>{
+  const a=document.createElement('a');a.href='#';a.dataset.i=i;dots.appendChild(a);
+});
+dots.addEventListener('click',e=>{
+  e.preventDefault();
+  const i=+e.target.dataset.i;
+  main.querySelectorAll('section')[i+1].scrollIntoView({behavior:'smooth'});
+});
+
+const secs=[...document.querySelectorAll('section')];
+function reveal(){
+  document.querySelectorAll('.card').forEach(c=>{
+    if(c.getBoundingClientRect().top<innerHeight*.85)c.classList.add('on');
+  });
+}
+addEventListener('scroll',reveal,{passive:true});
+addEventListener('resize',reveal,{passive:true});
+reveal();
+
+const layers=[...document.querySelectorAll('.layer')];
+const bar=document.getElementById('bar');
+const hint=document.getElementById('hint');
+const sceneOf=secs.map(s=>+s.dataset.scene);
+function onScroll(){
+  const max=document.documentElement.scrollHeight-innerHeight;
+  const p=max>0?Math.min(1,Math.max(0,scrollY/max)):0;
+  bar.style.width=(p*100)+'%';
+  hint.classList.toggle('gone',scrollY>innerHeight*.25);
+  const nb=secs.length;
+  const f=p*(nb-1);
+  const k=Math.min(nb-2,Math.floor(f));
+  const frac=f-k;
+  const t=sceneOf[k]-1+(sceneOf[k+1]-sceneOf[k])*frac;
+  layers.forEach((ly,i)=>{
+    const o=Math.max(0,Math.min(1,1-Math.abs(t-i)));
+    ly.style.opacity=o;
+    ly.style.transform=`scale(${1.06+Math.abs(t-i)*.05}) translateY(${(t-i)*14}px)`;
+  });
+  const cur=Math.round(t);
+  [...dots.children].forEach((a,i)=>a.classList.toggle('act',i===cur-1));
+}
+addEventListener('scroll',onScroll,{passive:true});
+onScroll();
+</script>
+</body>
+</html>
