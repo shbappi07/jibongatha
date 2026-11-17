@@ -126,29 +126,32 @@ dots.addEventListener('click',e=>{
 });
 
 const secs=[...document.querySelectorAll('section')];
+const secs=[...document.querySelectorAll('section')];
+const layers=[...document.querySelectorAll('.layer')];
+const bar=document.getElementById('bar');
+const hint=document.getElementById('hint');
+const sceneOf=secs.map(s=>+s.dataset.scene);
+let pos=[],raf=0;
+function measure(){
+  const sy=scrollY;
+  pos=secs.map(s=>{const r=s.getBoundingClientRect();return r.top+sy;});
+}
 function reveal(){
   document.querySelectorAll('.card').forEach(c=>{
     if(c.getBoundingClientRect().top<innerHeight*.85)c.classList.add('on');
   });
 }
-addEventListener('scroll',reveal,{passive:true});
-addEventListener('resize',reveal,{passive:true});
-reveal();
-
-const layers=[...document.querySelectorAll('.layer')];
-const bar=document.getElementById('bar');
-const hint=document.getElementById('hint');
-const sceneOf=secs.map(s=>+s.dataset.scene);
-function onScroll(){
+function draw(){
   const max=document.documentElement.scrollHeight-innerHeight;
   const p=max>0?Math.min(1,Math.max(0,scrollY/max)):0;
   bar.style.width=(p*100)+'%';
   hint.classList.toggle('gone',scrollY>innerHeight*.25);
-  const nb=secs.length;
-  const f=p*(nb-1);
-  const k=Math.min(nb-2,Math.floor(f));
-  const frac=f-k;
-  const t=sceneOf[k]-1+(sceneOf[k+1]-sceneOf[k])*frac;
+  const y=scrollY+innerHeight*.5;
+  let k=0;
+  while(k<pos.length-2&&y>=pos[k+1])k++;
+  const span=Math.max(1,pos[k+1]-pos[k]);
+  const fr=Math.min(1,Math.max(0,(y-pos[k])/span));
+  const t=sceneOf[k]+(sceneOf[k+1]-sceneOf[k])*fr;
   layers.forEach((ly,i)=>{
     const dv=t-i;
     let o;
@@ -161,8 +164,13 @@ function onScroll(){
   const cur=Math.round(t);
   [...dots.children].forEach((a,i)=>a.classList.toggle('act',i===cur-1));
 }
+function onScroll(){
+  if(!raf)raf=requestAnimationFrame(()=>{raf=0;reveal();draw();});
+}
+measure();
 addEventListener('scroll',onScroll,{passive:true});
-onScroll();
+addEventListener('resize',()=>{measure();reveal();draw();},{passive:true});
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{measure();draw();});
+addEventListener('load',()=>{measure();draw();});
+reveal();draw();
 </script>
-</body>
-</html>
